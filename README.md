@@ -1,7 +1,7 @@
 <p align="center">
   <a href="https://github.com/lenhanpham/OpenQuantum">
     <picture>
-      <img src="resources/oquantum-logo.svg" alt="OpenMECP" style="width: 50%;">
+      <img src="resources/oquantum-logo.svg" alt="OpenQuantum" style="width: 50%;">
     </picture>
   </a>
 </p>
