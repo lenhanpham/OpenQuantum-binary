@@ -89,8 +89,8 @@ H  -0.756950   0.000000  -0.469476
 
 | Variable | Description |
 |----------|-------------|
-| `OPENQUANTUM_SCRATCH` | Directory for temporary and checkpoint (`.chk`) files. Defaults to the OS temporary directory (`/tmp` on Linux/macOS, `%TEMP%` on Windows) when not set. |
-| `OPENQUANTUM_BASIS_PATH` | Override the search path for `.gbs` basis-set files. |
+| `OPENQUANTUM_SCRATCH` | Directory for temporary and checkpoint (`.oqt`) files. Defaults to the OS temporary directory (`/tmp` on Linux/macOS, `%TEMP%` on Windows) when not set. |
+| `OPENQUANTUM_BASIS_PATH` | Override the search path for `.oqb` basis-set files. |
 
 ### HPC Example
 
@@ -2148,7 +2148,7 @@ H  -0.756950   0.000000  -0.469476
 
 Restart the SCF from the saved density using `scf=(restart)` in the next run.
 
-By default the checkpoint file is placed next to the input file (`myjob.chk` for
+By default the checkpoint file is placed next to the input file (`myjob.oqt` for
 `myjob.inp`). Set `OPENQUANTUM_SCRATCH` to redirect it to a dedicated scratch
 directory (recommended on HPC systems with high-performance parallel filesystems).
 
