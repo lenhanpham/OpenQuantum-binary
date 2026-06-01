@@ -2369,19 +2369,6 @@ crates/
 └── driver/       # Binary entry point (oquantum), pipeline dispatch, checkpoint
 ```
 
-**Dependency graph** (acyclic):
-
-```
-common (root)
-  ├─ basis
-  │    └─ integral ─┐
-  ├─ symmetry ───────┤
-  ├─ iooq ───────────┤
-  ├─ geometry ───────┤
-  │                  ▼
-  └─ scf ── posthf ── driver
-```
-
 ### Code Structure Diagram
 
 The diagrams below are derived from the current production Rust module layout in
