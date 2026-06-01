@@ -48,7 +48,7 @@ core potentials (ECPs).
 
 ## Installation
 
-# Download the binary file that fits your system
+### Download the binary file that fits your system
 OpenQuantum binaries: 
 
 | Platform | Target | Recommendation |
