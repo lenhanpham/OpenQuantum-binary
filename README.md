@@ -1377,26 +1377,6 @@ All geometry optimization features are fully implemented and executed in the sol
 | **IRC workflow** (`irc`) | Active | Gonzalez-Schlegel (1990) mass-weighted IRC; imaginary-mode selection from diagonalized Hessian; predictor-corrector steps; bidirectional (`ircdir=±1` to restrict); per-direction path summary |
 | **NEB workflow** (`neb`, `images=N`) | Active | Henkelman-Jónsson energy-weighted tangent; CI-NEB activates after N/3 iterations; gradient-descent band relaxation; force-convergence stop; formatted path summary |
 
-### Planned Next Steps
-
-> Items 1–7 have all been implemented (see below).
-
-1. **Transition-state search (P-RFO)**: partitioned Rational Function Optimization: `prfo_step` in `crates/geometry/src/step_engine.rs` partitions Hessian eigenvectors into the TS mode (maximised with upper RFO root) and minimisation modes (lower RFO root). Activated automatically when `OptControlOptions::transition_state = true`.
-2. **Hard geometric constraints**: projected constraint enforcement (null-space / augmented Lagrangian) as an alternative to soft penalty: `GeometricConstraint` now carries a `hard: bool` flag, set by appending `!` to the constraint target (e.g. `bond:1-2=1.5ang!`). Hard constraints are enforced via null-space projection (`project_step_to_constraint_null_space` + `constraint_correction_step`) rather than a soft quadratic penalty. The projection is applied in the Cartesian Berny optimizer after the RFO step, and as a Cartesian correction after the IC→Cartesian back-transform in the primitive/DLC/TRIC IC optimizer. Functions live in `crates/geometry/src/constraints.rs`.
-3. **Primitive IC robustness**: (a) Transition-metal bonds (Z=21–30, 39–48, 57–80) now use a 1.3× scale factor for bond detection instead of 1.2×; (b) near-linear angle threshold lowered from 3.0 rad to 2.95 rad (≈169°) for better `LinearAngle` detection; (c) SVD pseudoinverse in `svd_pseudoinverse` now uses a relative threshold `max(ε, 1e-8·σ_max)` instead of a fixed `1e-6`.
-4. **DLC/TRIC full IC optimizer**: Hessian update and RFO step directly in delocalized/TRIC space: When `coordinate_model` is `Delocalized` or `Tric`, `berny_optimize_ic_with_controls` now builds the DLC basis matrix **U** (rank × m) via SVD of the B-matrix, transforms both the primitive IC gradient (`g_dlc = U g_prim`) and the Hessian (`H_dlc = U H_prim Uᵀ`) into the non-redundant DLC space, takes the TRM step in DLC space, then back-projects (`dy_prim = Uᵀ dy_dlc`) before the Cartesian back-transform. The primitive Hessian `h_ic` is retained in full redundant IC space and updated via MSP as usual, providing stable curvature propagation across steps.
-5. **Analytical IC Hessian**: `OptControlOptions::cart_hessian: Option<Vec<Vec<f64>>>` field added. When populated, `berny_optimize_ic_with_controls` transforms it to IC space via `cart_hess_to_ic` (Wilson G⁻¹BH_xB^T G⁻¹) instead of using the Lindh diagonal guess.
-6. **IRC refinement**: `irc_one_direction` now uses a proper Gonzalez–Schlegel corrector sub-loop (up to 10 iterations per IRC step): the gradient is projected orthogonal to the radial (path tangent) direction in mass-weighted coordinates, then a constrained steepest-descent step is taken on the hypersphere, iterating until the perpendicular gradient norm is below 1e-6.
-
-7. **Sella-style IC optimizer**: Full port of a saddle-point-aware quasi-Newton optimizer to the Rust codebase. New modules:
-   - `crates/geometry/src/eigensolver.rs` — Davidson partial eigensolver, Modified Gram-Schmidt orthogonalisation, `NumericalHessian` finite-difference Hv products.
-   - `crates/geometry/src/hessian.rs` (extended) — `update_hessian_ts_bfgs`, `update_hessian_sr1`, `update_hessian_dfp`, `HessianUpdateMethod` enum, and `update_hessian` dispatcher.
-   - `crates/geometry/src/step_engine.rs` (extended) — `mmf_step` Minimum Mode Following step with `|λ|` denominator and bisection trust enforcement.
-   - `crates/geometry/src/sella_opt.rs` — `sella_optimize_ic`: full IC optimizer with TS-BFGS update, P-RFO or MMF step, sigma-based trust-radius schedule, adaptive Hessian eigenvalue correction, DLC/TRIC subspace support, 5-criterion Gaussian convergence, and hard-constraint correction.
-   - `common/src/types.rs` (extended) — `OptControlOptions::use_sella: bool` and `OptControlOptions::sella_order: Option<usize>` fields.
-   - `crates/iooq/src/route.rs` (extended) — `sella` keyword parsed as standalone token and inside `opt=(...)` block.
-   - `crates/geometry/src/berny.rs` (extended) — Early dispatch to `sella_opt::sella_optimize_ic` when `controls.use_sella == true`.
-
 ### Molecular Geometry (XYZ Format)
 
 The geometry block starts with the atom count, followed by a comment line (which may
