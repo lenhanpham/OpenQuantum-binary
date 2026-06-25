@@ -21,16 +21,16 @@ core potentials (ECPs).
 
 > **Note**: The project is under active development and not yet ready for production use.
 
-## Some Features, examples, and instructions
+## Full Features, examples, and instructions
 [https://lenhanpham.github.io/OpenQuantum](https://lenhanpham.github.io/OpenQuantum)
 
 
 ## Features
 
 - **Molecular Input**: XYZ Cartesian and Z-matrix geometry formats, Angstrom or Bohr units
-- **Basis Sets**: STO-3G, 6-31G, 6-31G\*, cc-pVDZ, cc-pVTZ, def2-SVP, def2-TZVP, and 100+ more via embedded `.gbs` files (H–Xe and beyond)
+- **Basis Sets**: STO-3G, 6-31G, 6-31G\*, cc-pVDZ, cc-pVTZ, def2-SVP, def2-TZVP, and 500+ more (H–Xe and beyond)
 - **One-Electron Integrals**: Overlap (S), kinetic energy (T), and nuclear attraction (V) via Obara-Saika recurrences
-- **Two-Electron Integrals**: McMurchie-Davidson algorithm with 8-fold permutational symmetry; SP analytical fast paths for S/P shells (up to 10× speedup); Rys quadrature for D/F+ shells; direct SCF mode for large systems with symmetry-accelerated cache lookup; engine selection via `int=(eri=...)` — applies uniformly to in-core ERI build, direct SCF, analytical gradients/Hessians, and semi-analytical (FD) Hessians
+- **Two-Electron Integrals**: McMurchie-Davidson algorithm with 8-fold permutational symmetry; SP analytical fast paths for S/P shells (up to 10× speedup); Rys quadrature for D/F+ shells; direct SCF mode for large systems with symmetry-accelerated cache lookup; engine selection via `INT section` — applies uniformly to in-core ERI build, direct SCF, analytical gradients/Hessians, and semi-analytical (FD) Hessians
 - **SCF Methods**: RHF, UHF, and ROHF with DIIS, level shifting, damping, Fermi broadening, multiple initial guesses (core Hamiltonian, Hückel, SAD), and Quadratic Convergence SCF (QC-SCF) with Newton-Raphson orbital optimization
 - **Post-HF**: MP2 and CCSD(T) correlation energies
 - **Analytical Gradients**: RHF and UHF analytic nuclear gradients with symmetry-accelerated ERI derivatives (skips symmetry-equivalent shell quartets); used by BFGS optimizer
