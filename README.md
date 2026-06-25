@@ -42,7 +42,8 @@ core potentials (ECPs).
 - **Symmetry**: Point group detection, character tables, irrep assignment; symmetry acceleration for all ERI-heavy computations — energy (in-core + direct SCF), analytical gradient, and analytical Hessian (matching GRAD2E SymShl — skips symmetry-equivalent shell quartets before expensive integral evaluation)
 - **CPHF Solver**: Coupled-perturbed Hartree-Fock equations for response properties; RHF and coupled 2×2 UHF spins
 - **Analysis**: Mulliken population analysis, orbital energies, spin contamination ⟨S²⟩, dipole moments, EFG
-- **Checkpointing**: Save and restart SCF from binary checkpoint files; checkpoint and other temporary files are written to a configurable scratch directory (see [Environment Variables](#environment-variables))
+- **Checkpointing**: Save and restart SCF from binary checkpoint files; checkpoint and other temporary files are written to a configurable scratch directory
+- **Simplicit solvents**: Support basis implicit solvent treatments
 
 ## Installation
 
