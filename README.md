@@ -30,10 +30,10 @@ core potentials (ECPs).
 - **Molecular Input**: XYZ Cartesian and Z-matrix geometry formats, Angstrom or Bohr units
 - **Basis Sets**: STO-3G, 6-31G, 6-31G\*, cc-pVDZ, cc-pVTZ, def2-SVP, def2-TZVP, and 500+ more (H–Xe and beyond)
 - **One-Electron Integrals**: Overlap (S), kinetic energy (T), and nuclear attraction (V) via Obara-Saika recurrences
-- **Two-Electron Integrals**: McMurchie-Davidson algorithm with 8-fold permutational symmetry; SP analytical fast paths for S/P shells (up to 10× speedup); Rys quadrature for D/F+ shells; direct SCF mode for large systems with symmetry-accelerated cache lookup; engine selection via `INT section` — applies uniformly to in-core ERI build, direct SCF, analytical gradients/Hessians, and semi-analytical (FD) Hessians
+- **Two-Electron Integrals**: McMurchie-Davidson algorithm with 8-fold permutational symmetry; SP analytical fast paths for S/P shells (up to 10× speedup); Rys quadrature for D/F+ shells; direct SCF mode for large systems with symmetry-accelerated cache lookup; engine selection via `INT section` - applies uniformly to in-core ERI build, direct SCF, analytical gradients/Hessians, and semi-analytical (FD) Hessians
 - **SCF Methods**: RHF, UHF, and ROHF with DIIS, level shifting, damping, Fermi broadening, multiple initial guesses (core Hamiltonian, Hückel, SAD), and Quadratic Convergence SCF (QC-SCF) with Newton-Raphson orbital optimization
-- **DFT Methods**: A few popular functionals such as B3LYP and Bp86 are supported
-- **Post-HF**: MP2 and CCSD(T) correlation energies
+- **DFT Methods**: A few popular functionals such as B3LYP and BP86 are supported
+- **Post-HF**: MP2 and CCSD(T) correlation energies (not fully tested)
 - **Analytical Gradients**: RHF and UHF analytic nuclear gradients with symmetry-accelerated ERI derivatives (skips symmetry-equivalent shell quartets); used by BFGS optimizer
 - **Analytical Hessians**: Fully analytical RHF and UHF Hessians including CPHF response, occupied-occupied reorthonormalization, and analytic d²ERI integrals with symmetry acceleration (skips symmetry-equivalent quartets); semi-analytical (FD) path also propagates the selected ERI engine to all displaced SCF evaluations
 - **Geometry Optimization**: With several optimization algorithms 
